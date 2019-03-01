@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,7 +43,7 @@ public class Search_Results extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_search__results, container, false);
@@ -78,6 +79,12 @@ public class Search_Results extends Fragment {
                 recyclerView.setHasFixedSize(true);
                 bookListItems = new ArrayList<>();
 
+                if(items == null)
+                {
+                    Toast.makeText(getContext(), "No books found", Toast.LENGTH_SHORT).show();
+
+                    return;
+                }
 
                 for (Items book : items)
                 {
@@ -89,7 +96,7 @@ public class Search_Results extends Fragment {
 
                 }
                 adapter = new ViewAdapter();
-                ((ViewAdapter) adapter).setBookListItems(bookListItems);
+                ((ViewAdapter) adapter).setBookListItems(bookListItems, getContext());
                 recyclerView.setAdapter(adapter);
             }
 

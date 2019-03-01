@@ -5,9 +5,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,11 +21,11 @@ import java.util.List;
 public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder> {
 
     private List<BookListItem> bookListItems;
-//    private Context context;
+    private Context context;
 
-    public void setBookListItems(List<BookListItem> bookListItems) {
+    public void setBookListItems(List<BookListItem> bookListItems, Context context) {
         this.bookListItems = bookListItems;
-//        this.context = context;
+        this.context = context;
         notifyDataSetChanged();
     }
 
@@ -42,7 +44,19 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder> {
 
         holder.title.setText(bookListItem.getTitle());
         holder.author.setText(bookListItem.getAuthor());
-        holder.id.setText(bookListItem.getId());
+        holder.favorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Added to Favorites", Toast.LENGTH_SHORT).show();
+            }
+        });
+        holder.to_read.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Added to Read Later", Toast.LENGTH_SHORT).show();
+            }
+        });
+//        holder.id.setText(bookListItem.getId());
 
         Picasso.get()
                 .load(bookListItem.getThumbnail())
@@ -56,9 +70,11 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
-        private TextView id;
+//        private TextView id;
         private TextView author;
         private ImageView thumbnail;
+        private Button favorites;
+        private Button to_read;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +82,8 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder> {
 //            this.id = itemView.findViewById(R.id.bookId);
             this.author = itemView.findViewById(R.id.bookAuthor);
             this.thumbnail = itemView.findViewById(R.id.thumbnail);
+            this.favorites = itemView.findViewById(R.id.bn_favorites);
+            this.to_read = itemView.findViewById(R.id.bn_to_read);
         }
     }
 }
