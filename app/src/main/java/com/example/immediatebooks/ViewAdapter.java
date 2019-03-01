@@ -5,20 +5,25 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder> {
 
     private List<BookListItem> bookListItems;
-    private Context context;
+//    private Context context;
 
     public void setBookListItems(List<BookListItem> bookListItems) {
         this.bookListItems = bookListItems;
+//        this.context = context;
         notifyDataSetChanged();
     }
 
@@ -36,7 +41,12 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder> {
         BookListItem bookListItem = bookListItems.get(position);
 
         holder.title.setText(bookListItem.getTitle());
+        holder.author.setText(bookListItem.getAuthor());
         holder.id.setText(bookListItem.getId());
+
+        Picasso.get()
+                .load(bookListItem.getThumbnail())
+                .into(holder.thumbnail);
     }
 
     @Override
@@ -47,11 +57,15 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private TextView id;
+        private TextView author;
+        private ImageView thumbnail;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.title = itemView.findViewById(R.id.bookTitle);
-            this.id = itemView.findViewById(R.id.bookId);
+//            this.id = itemView.findViewById(R.id.bookId);
+            this.author = itemView.findViewById(R.id.bookAuthor);
+            this.thumbnail = itemView.findViewById(R.id.thumbnail);
         }
     }
 }

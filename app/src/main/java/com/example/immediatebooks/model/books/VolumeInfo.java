@@ -1,7 +1,11 @@
 package com.example.immediatebooks.model.books;
 
+import com.example.immediatebooks.model.Items;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class VolumeInfo {
 
@@ -13,10 +17,34 @@ public class VolumeInfo {
     @Expose
     private String description;
 
-    /*
+
     @SerializedName("authors")
     @Expose
-    private String authors;*/
+    private List<String> authors;
+
+
+    @SerializedName("imageLinks")
+    @Expose
+    private ImageLinks imageLinks;
+
+    public ImageLinks getImageLinks() {
+        return imageLinks;
+    }
+
+    public void setImageLinks(ImageLinks imageLinks) {
+        this.imageLinks = imageLinks;
+    }
+
+
+
+    public List<String> getAuthors() {
+        return authors;
+    }
+
+
+
+
+
 
     public String getTitle() {
         return title;
@@ -25,9 +53,5 @@ public class VolumeInfo {
     public String getDescription() {
         return description;
     }
-/*
-    public String getAuthors() {
-        return authors;
-    }
-*/
+
 }

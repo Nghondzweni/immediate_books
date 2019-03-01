@@ -29,8 +29,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class Search_Results extends Fragment {
 
-    private TextView textView;
-    private TextView textViewResult;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
@@ -48,8 +46,7 @@ public class Search_Results extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_search__results, container, false);
-       // textViewResult = view.findViewById(R.id.textViewResults);
-       // textViewResult = view.findViewById(R.id.search_results);
+
         Bundle bundle = getArguments();
         String message = bundle.getString("message");
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -71,20 +68,22 @@ public class Search_Results extends Fragment {
             public void onResponse(Call<Feed> call, Response<Feed> response) {
                 if(!response.isSuccessful()){
 //                    textViewResult.setText("Code: " +response.code());
-//                    System.out.println(textViewResult);
+                    System.out.println("here1");
                     return;
                 }
                 ArrayList<Items> items = response.body().getItems();
 
+                System.out.println("here3");
 
                 recyclerView.setHasFixedSize(true);
                 bookListItems = new ArrayList<>();
+
 
                 for (Items book : items)
                 {
 
                     BookListItem bookListItem = new BookListItem(
-                            book.getVolumeInfo().getTitle(), book.getBookID()
+                            book.getVolumeInfo().getTitle(), book.getBookID(), "Author: " +book.getVolumeInfo().getAuthors().get(0), book.getVolumeInfo().getImageLinks().getThumbnail()
                     );
                     bookListItems.add(bookListItem);
 
@@ -98,6 +97,7 @@ public class Search_Results extends Fragment {
             @Override
             public void onFailure(Call<Feed> call, Throwable t) {
 //                textViewResult.setText(t.getMessage());
+                System.out.println("here2");
             }
         });
 

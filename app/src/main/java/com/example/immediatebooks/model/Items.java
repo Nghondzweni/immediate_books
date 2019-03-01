@@ -1,5 +1,6 @@
 package com.example.immediatebooks.model;
 
+import com.example.immediatebooks.model.books.ImageLinks;
 import com.example.immediatebooks.model.books.VolumeInfo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -15,6 +16,8 @@ public class Items {
     @SerializedName("id")
     @Expose
     private String bookID;
+
+
 
 
 
